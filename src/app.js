@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import cookieParser  from "cookie-parser";
 const app = express()
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 
 app.use(cors({
@@ -19,7 +21,8 @@ import userRouter from "./routes/user.routes.js"
 
 //routes declaration
 app.use("/api/v1/users", userRouter);
-app.use("api/v1/users", userRouter)
+
+
 
 
 export { app }
