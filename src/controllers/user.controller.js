@@ -3,19 +3,23 @@ import { User } from "../models/user.model.js";
 import {ApiError} from "../utils/apiError.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/apiResponse.js";
+import jwt from "jsonwebtoken"
 
 const generateAccessAndrefreshToken = async(userId) => {
     try {
-        const user = await User.findById(userId);
+        const user = await User.findById(userId)
         const accessToken = user.generateAccessToken()
         const refreshToken = user.generateRefreshToken()
 
         user.refreshToken = refreshToken
-        user.save({validateBeforeSave: false})
+        await user.save({ validateBeforeSave: false })
 
+        console.log("access",accessToken, "refresh",refreshToken);
         return {accessToken, refreshToken}
+
+
     } catch (error) {
-        throw new ApiError(400, "something went wrong while generation access and regresh token");
+        throw new ApiError(500, "Something went wrong while generating referesh and access token")
     }
 }
 
@@ -111,11 +115,17 @@ const loginUser = asyncHandler(async (req, res) => {
     // send cookie
 
     const {email, username , password} = req.body
-    if(!username || !email){
+    console.log(email, password);
+    if(!username && !email){
         throw new ApiError(400, "username or email is required");
     }
 
-    const user = await user.findOne({
+    // if any one field is mandatory
+    if(!(username || email)){
+        throw new ApiError(400, "username or email is required");
+    }
+
+    const user = await User.findOne({
         $or : [{ email }, { username }]
     })
 
@@ -129,9 +139,9 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new ApiError(400, "invalid user credentials")
     }
 
-    const {accesstoken, refreshToken} = await generateAccessAndrefreshToken(user._id)
+    const {accessToken, refreshToken} = await generateAccessAndrefreshToken(user._id)
 
-    const loggedInUser = await User.findById(user._id).select("-password - refreshToken")
+    const loggedInUser = await User.findById(user._id).select(" -password -refreshToken ")
 
     const option = {
         httpOnly: true,
@@ -140,7 +150,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     return res.status(200)
     .cookie("accessToken", accessToken, option)
-    .cookie("refreshToken refreshToken", option)
+    .cookie("refreshToken", refreshToken, option)
     .json(
         new ApiResponse(
             200, 
@@ -175,9 +185,57 @@ const logoutUser = asyncHandler(async(req, res) => {
     .json(new ApiResponse(200, {}, "User logged Out"))
 })
 
+const refreshAccessToken = asyncHandler(async (req, res) => {
+    const incomingRefresshToken = req.cookies.refreshToken || req.body.refreshToken
+
+    if(!incomingRefresshToken){
+        throw new ApiError(401, "Unauthorized request")
+    }
+
+    try {
+        const dekodedToken = jwt.verify(
+            incomingRefresshToken,
+            process.env.REFRESH_TOKEN_SECRET
+        )
+    
+        const user = await User.findById(dekodedToken?._id)
+    
+        if(!user){
+            throw new ApiError(401, "Invalid request Token")
+        }
+    
+        if(incomingRefresshToken !== user?.refreshToken){
+            throw new ApiError(401, "refreshToken if Expired or used")
+        }
+    
+        const option = {
+            httpOnly: true,
+            secure: true
+        }
+    
+        const {accessToken, refreshToken} = await generateAccessAndrefreshToken(user._id)
+    
+        return res.status(200)
+        .cookie("accessToken", accessToken)
+        .cookie("refreshToken", refreshToken)
+        .json(
+            new ApiResponse(
+                200,
+                {
+                    accessToken, refreshToken
+                },
+                "Access tokrn refreshed"
+            )
+        )
+    } catch (error) {
+        throw new ApiError(401, "invalid request token")
+    }
+})
+
 export {
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    refreshAccessToken
 }
     
