@@ -5,7 +5,6 @@ const app = express()
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
     credentials: true
@@ -21,6 +20,7 @@ import userRouter from "./routes/user.routes.js"
 
 //routes declaration
 app.use("/api/v1/users", userRouter);
+
 
 
 
