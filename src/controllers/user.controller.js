@@ -230,7 +230,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
                 {
                     accessToken, refreshToken
                 },
-                "Access tokrn refreshed"
+                "Access token refreshed"
             )
         )
     } catch (error) {
@@ -249,6 +249,10 @@ const changeCurrentpassword = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Old Password must be correct")
     }
 
+    if(oldPassword === newPassword){
+        throw new ApiError(400, "New Password must be different from old password")
+    }
+
     user.password = newPassword
     await user.save({validateBeforeSave:false})
 
@@ -258,9 +262,11 @@ const changeCurrentpassword = asyncHandler(async (req, res) => {
 })
 
 const getCurrentUser = asyncHandler(async (req, res) =>{
+
+    console.log(req.user)   
     return res
     .status(200)
-    .json(200, req.user, "User fetched successfully");
+    .json(new ApiResponse(200, req.user, "User fetched successfully"))
 })
 
 const updateAccountDetails = asyncHandler(async (req,res)=>{
@@ -281,9 +287,9 @@ const updateAccountDetails = asyncHandler(async (req,res)=>{
         {new:true}, //return the updated document
     ).select("-password")
 
-    return res
+    return res  
     .status(200)
-    .json(200, user, "Account details updated successfully")
+    .json(new ApiResponse(200, user, "Account details updated successfully"))
 })
 
 const updateUserAvatar = asyncHandler(async(req, res) => {
