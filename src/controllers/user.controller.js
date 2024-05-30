@@ -276,7 +276,7 @@ const updateAccountDetails = asyncHandler(async (req,res)=>{
         throw new ApiError(400, "Please provide all fields");
     }
 
-    const user = User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
         req.user?._id,
         {
             $set: {
@@ -295,8 +295,7 @@ const updateAccountDetails = asyncHandler(async (req,res)=>{
 const updateUserAvatar = asyncHandler(async(req, res) => {
     //TODO: delete old image - assignment
 
-    
-    const avatarLocalPath = req.file?.path
+    const avatarLocalPath = req.file?.avatar[0].path
 
     if (!avatarLocalPath) {
         throw new ApiError(400, "Avatar file is missing")
