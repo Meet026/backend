@@ -1,0 +1,870 @@
+{
+	"info": {
+		"_postman_id": "7be24a73-b5c0-49f9-956a-fecdb79c08c4",
+		"name": "You-Tube",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34113672"
+	},
+	"item": [
+		{
+			"name": "Backend",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "fullname",
+											"value": "full-name",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "your-email@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "username",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"value": "upload avatar file",
+											"type": "text"
+										},
+										{
+											"key": "coverImage",
+											"value": "upload cover image",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/users/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"your-email@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/users/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/users/logout",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-channel",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/users/get-channel/your-channel-name",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"get-channel",
+										"your-channel-name"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "refresh-token",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/users/refresh-token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"refresh-token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "change-password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"oldPassword\":\"oldPassword\",\r\n    \"newPassword\": \"newPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/users/change-password",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getCurrentUser",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"oldPassword\":\"Aaka@1234\",\r\n    \"newPassword\": \"Aaka@12345\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/users/current-user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"current-user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-account",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullname\":\"fullname\",\r\n    \"email\": \"your-email@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/users/update-account",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"update-account"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Video",
+					"item": [
+						{
+							"name": "publishVideo",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "Title",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Description ",
+											"type": "text"
+										},
+										{
+											"key": "videoFile",
+											"value": "upload video",
+											"type": "text"
+										},
+										{
+											"key": "thumbnail",
+											"value": "upload thumbnail",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/video/publishVideo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"video",
+										"publishVideo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getVIdeoById",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "Gujcet",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "this is description",
+											"type": "text"
+										},
+										{
+											"key": "videoFile",
+											"type": "file",
+											"src": "/C:/Coding/web development/Lecture - 01/03. HTML (Level 1) - Part A/3. Hello World.mp4"
+										},
+										{
+											"key": "thumbnail",
+											"type": "file",
+											"src": "/C:/Users/meetp/OneDrive/Pictures/Screenshots/Screenshot 2023-10-27 223022.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/video/VideoId-that-you-want-you-want-to-fetch",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"video",
+										"VideoId-that-you-want-you-want-to-fetch"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateVideo",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "HTML",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "this is description about practise question",
+											"type": "text"
+										},
+										{
+											"key": "thumbnail",
+											"type": "file",
+											"src": "/C:/Users/meetp/OneDrive/Pictures/Screenshots/Screenshot 2023-10-27 223022.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/video/update-video/VideoId-that-you-want-to-update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"video",
+										"update-video",
+										"VideoId-that-you-want-to-update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteVideo",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "HTML",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "this is description about practise question",
+											"type": "text"
+										},
+										{
+											"key": "thumbnail",
+											"type": "file",
+											"src": "/C:/Users/meetp/OneDrive/Pictures/Screenshots/Screenshot 2023-10-27 223022.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/video/delete-video/VideoId-that-you want-to-delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"video",
+										"delete-video",
+										"VideoId-that-you want-to-delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAllVideo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/v1/video/getvideos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"video",
+										"getvideos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Comment",
+					"item": [
+						{
+							"name": "addComment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\":\"Great video\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/comment/add-comment/Id-of-the-video",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"comment",
+										"add-comment",
+										"Id-of-the-video"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateComment",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "content",
+											"value": "nice",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/comment/update-comment/commentId-that-you-want-to-update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"comment",
+										"update-comment",
+										"commentId-that-you-want-to-update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteComment",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "content",
+											"value": "nice",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/comment/delete-comment/commentId-that-you-want-to-delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"comment",
+										"delete-comment",
+										"commentId-that-you-want-to-delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getVideoComment",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "content",
+											"value": "nice",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/comment/getVideoComments/videoId-for-wht-you-want-to-fetch-comment",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"comment",
+										"getVideoComments",
+										"videoId-for-wht-you-want-to-fetch-comment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tweet",
+					"item": [
+						{
+							"name": "createTweet",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/v1/tweet/createTweet",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"tweet",
+										"createTweet"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUserTweet",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "content",
+											"value": "Hello, this tweet from aakanksha",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/tweet/getUserTweets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"tweet",
+										"getUserTweets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateTweet",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "content",
+											"value": "Hello, this tweet from aakanksha vora",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/tweet/updateTweet/tweetId-that-you-want-to-update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"tweet",
+										"updateTweet",
+										"tweetId-that-you-want-to-update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteTweet",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "content",
+											"value": "Hello, this tweet from aakanksha vora",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/tweet/deleteTweet/tweetId-that-you-want-to-delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"tweet",
+										"deleteTweet",
+										"tweetId-that-you-want-to-delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Like",
+					"item": [
+						{
+							"name": "videoLike",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/v1/Like/toggleVideoLike/videoId-that-you-waant-to-like",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"Like",
+										"toggleVideoLike",
+										"videoId-that-you-waant-to-like"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "commentLike",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/v1/Like/toggleCommentLike/commentId-that-you-waant-to-like",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"Like",
+										"toggleCommentLike",
+										"commentId-that-you-waant-to-like"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "tweetLike",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/v1/Like/toggleTweetLike/tweetId-that-you-waant-to-like",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"Like",
+										"toggleTweetLike",
+										"tweetId-that-you-waant-to-like"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "likedVideo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/v1/Like/likedVideo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"Like",
+										"likedVideo"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
