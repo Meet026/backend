@@ -80,5 +80,5 @@ You can use tool like Postman to test the available endpoints. Make sure your se
 You can import the included Postman collection to test the API easily:
 1. Open Postman
 2. Click Import > File.
-3. [Download](./You-Tube.postman.collection.json) and Upload the You-Tube.postman_collection.json file.
+3. Upload the You-Tube.postman_collection.json file given in Repository.
 4. Test the API endpoints with your data.
