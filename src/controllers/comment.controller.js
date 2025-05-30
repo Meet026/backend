@@ -21,6 +21,25 @@ const getVideoComments = asyncHandler(async (req, res) => {
                 localField:"_id",
                 foreignField:"video",
                 as :"AllComments" ,
+
+                pipeline: [
+                    {
+                        $project: {
+                            content: 1
+                        }
+                    }
+                ],
+
+                pipeline: [
+                    {
+                        $lookup: {
+                            from: "likes",
+                            localField: "_id",
+                            foreignField: "comment",
+                            as: "CommentLiked"
+                        }
+                    }
+                ]
             }
         },
         {
@@ -55,7 +74,7 @@ const addComment = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Video id is required")
     }
 
-    const { content } =  req.body
+    const  {content}  =  req.body
 
     if(!content){
         throw new ApiError(400, "cannot left content empty")

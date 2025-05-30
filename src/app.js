@@ -30,7 +30,4 @@ app.use("/api/v1/tweet", tweetRouter);
 app.use("/api/v1/Like", LikeRouter);
 
 
-
-
-
 export { app }

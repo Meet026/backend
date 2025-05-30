@@ -10,14 +10,19 @@ import {uploadOnCloudinary} from "../utils/cloudinary.js"
 const getAllVideos = asyncHandler(async (req, res) => {
     // const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query
     //TODO: get all videos based on query, sort, pagination
+    console.log("Inside Get videos");
 
     const userId = req.user?._id;
+
+    if(!userId){
+        throw new ApiError(500, "UserId not found")
+    }
     console.log(userId);
     
     const videos = await Video.aggregate([
         {
             $match: {
-                owner: userId
+                owner: mongoose.Types.ObjectId(userId)
             }
         },
         {
@@ -36,7 +41,7 @@ const getAllVideos = asyncHandler(async (req, res) => {
                 thumbnail: 1,
                 owner: 1,
                 description: 1,
-                duration: 1
+                duration: 1,
             }
         }
     ])
@@ -96,15 +101,59 @@ const publishVideo = asyncHandler(async (req, res) => {
 
 const getVideoById = asyncHandler(async (req, res) => {
     const { videoId } = req.params
+    console.log(videoId)
     //TODO: get video by id
 
-    const video = await Video.findById(videoId)
+    const video = await Video.aggregate([
+        {
+            $match: {
+                _id: new mongoose.Types.ObjectId(videoId)
+            }
+        },
+        {
+            $lookup: {
+                from: "comments",
+                localField: "_id",
+                foreignField: "video",
+                as: "Comments", 
 
-    if(req.user?._id.toString() !== video.owner.toString()){
+                pipeline: [
+                    {
+                        $project: {
+                            content: 1
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            $lookup: {
+                from: "likes",
+                localField: "_id",
+                foreignField: "video",
+                as: "Likes", 
+
+               pipeline: [
+                    {
+                        $project: {
+                            likedBy: 1
+                        }
+                    }
+               ]
+                
+            }
+        }
+    ])
+
+    console.log(req.user?._id)
+    console.log(video.owner);
+
+
+    if(req.user._id.toString() !== video[0].owner.toString()){
         throw new ApiError(400, "unauthorized request")
-    }
+    } 
 
-    if(!video){
+    if(video.length === 0){
         throw new ApiError(404, "Video not found")
     }
 
@@ -135,14 +184,14 @@ const updateVideo = asyncHandler(async (req, res) => {
 
     const thumbnailLocalPath = req.file?.path
 
+    console.log();
+
     if(!thumbnailLocalPath){
         throw new ApiError(400, "thumbnail required")
     }
 
     // const videoFile = await uploadOnCloudinary(videoLocalPath)
     const thumbnail = await uploadOnCloudinary(thumbnailLocalPath)
-
-    console.log(thumbnail);
 
     const updatedVideo = await Video.findByIdAndUpdate(
         Id,
@@ -156,8 +205,10 @@ const updateVideo = asyncHandler(async (req, res) => {
         {new: true}
     )
 
-    console.log(req.user?._id)
-    console.log(updatedVideo.owner);
+    console.log("updated Video", updatedVideo);
+
+    // console.log(req.user?._id)
+    // console.log(updatedVideo.owner);
 
     if(req.user._id.toString() !== updatedVideo.owner.toString()){
         throw new ApiError(400, "unauthorized request")

@@ -6,8 +6,6 @@ import { ApiResponse } from "../utils/apiResponse.js";
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose";
 
-
-
 const generateAccessAndrefreshToken = async(userId) => {
     try {
         const user = await User.findById(userId)
@@ -64,6 +62,7 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(409, "user with username or email already exist")
     }
 
+    console.log("User Conteroller : ", req.files?.avatar[0]?.path)
     const avatarLocalPath = req.files?.avatar[0]?.path;
     // const coverImageLocalPath = req.files?.coverImage?.path;
     console.log(avatarLocalPath);
@@ -109,7 +108,7 @@ const registerUser = asyncHandler( async (req, res) => {
      return res.status(201).json(
         new ApiResponse(200, createdUser, "User registered Successfully")
      )
-     return avatar
+     
 }) 
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -144,7 +143,7 @@ const loginUser = asyncHandler(async (req, res) => {
     if(!isPasswordValid){
         throw new ApiError(400, "invalid user credentials")
     }
-
+ 
     const {accessToken, refreshToken} = await generateAccessAndrefreshToken(user._id)
 
     const loggedInUser = await User.findById(user._id).select(" -password -refreshToken ")
@@ -258,7 +257,7 @@ const changeCurrentpassword = asyncHandler(async (req, res) => {
 
     return res
     .status(200)
-    .json(new ApiResponse(200, {}, "Password changed successfully"))
+    .json(new ApiResponse(200, user, "Password changed successfully"))
 })
 
 const getCurrentUser = asyncHandler(async (req, res) =>{
@@ -295,7 +294,7 @@ const updateAccountDetails = asyncHandler(async (req,res)=>{
 const updateUserAvatar = asyncHandler(async(req, res) => {
     //TODO: delete old image - assignment
 
-    const avatarLocalPath = req.file?.avatar[0].path
+    const avatarLocalPath = req.files?.avatar[0].path
 
     if (!avatarLocalPath) {
         throw new ApiError(400, "Avatar file is missing")
@@ -331,9 +330,6 @@ const updateUserCoverImage = asyncHandler(async(req, res) => {
     if (!coverImageLocalPath) {
         throw new ApiError(400, "Cover image file is missing")
     }
-
-    //TODO: delete old image - assignment
-
 
     const coverImage = await uploadOnCloudinary(coverImageLocalPath)
 

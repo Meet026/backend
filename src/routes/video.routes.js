@@ -28,12 +28,12 @@ router.route("/publishVideo").post(
 
 router.route("/:videoId").get(getVideoById)
 
+router.route("/get-videos").get(getAllVideos)
+
 router.route("/update-video/:Id").patch(
     upload.single("thumbnail"), 
     updateVideo
 )
-
-router.route("/getAllVideo").get(getAllVideos)
 
 router.route("/delete-video/:videoId").delete(deleteVideo)
 
